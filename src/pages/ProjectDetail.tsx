@@ -1,24 +1,14 @@
 import { Navbar } from "@/components/Navbar";
-import { Dashboard } from "@/components/Dashboard";
-import { ProjectStatusOverview } from "@/components/ProjectStatusOverview"; // New import
-import { BrandAnalysis } from "@/components/BrandAnalysis";
-import { MarketTrends } from "@/components/MarketTrends";
-import { CompetitorAnalysis } from "@/components/CompetitorAnalysis";
-import { ResearchTools } from "@/components/ResearchTools";
+import { ProjectDetailDashboard } from "@/components/ProjectDetailDashboard";
 import { MotionContainer } from "@/components/MotionContainer";
 
-const Index = () => {
+const ProjectDetail = () => {
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
       <main className="flex-1">
-        <div className="container px-4 md:px-6">
-          <Dashboard />
-          <ProjectStatusOverview /> {/* Add this new component */}
-          <BrandAnalysis />
-          <MarketTrends />
-          <CompetitorAnalysis />
-          <ResearchTools />
+        <div className="container px-4 md:px-6 py-8">
+          <ProjectDetailDashboard />
         </div>
       </main>
       <footer className="border-t py-6">
@@ -48,4 +38,4 @@ const Index = () => {
   );
 };
 
-export default Index;
+export default ProjectDetail;

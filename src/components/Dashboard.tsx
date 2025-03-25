@@ -1,9 +1,9 @@
-
-import { BarChart, LineChart, PieChart, TrendingUp, Users } from "lucide-react";
+import { BarChart, LineChart, PieChart, TrendingUp, Users, Calendar, FileText, CheckCircle, Clock } from "lucide-react";
 import { MetricsCard } from "./MetricsCard";
 import { MotionContainer } from "./MotionContainer";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { AreaChart, Bar, CartesianGrid, ResponsiveContainer, XAxis, YAxis, Tooltip, Area, BarChart as RechartsBarChart } from "recharts";
+import { Progress } from "@/components/ui/progress";
 
 const marketData = [
   { month: "Jan", value: 400, market: 240 },
