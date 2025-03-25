@@ -1,5 +1,32 @@
-import { BarChart, LineChart, PieChart, TrendingUp, Users, Calendar, FileText, CheckCircle, Clock } from "lucide-react";
-import { MetricsCard } from "./MetricsCard";
+import { useNavigate } from "react-router-dom";import { BarChart, LineChart, PieChart, TrendingUp, Users, Calendar, FileText, CheckCircle, Clock } from "lucide-react";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+export default Dashboard;};  );    </div>      {/* ...existing code... */}      ))}        </Card>          {/* Project card content */}        >          onClick={() => handleViewProject(project.id)}          className="hover-lift cursor-pointer"           key={project.id}         <Card       {projects.map((project) => (      {/* ...existing code... */}    <div>  return (  };    navigate(`/projects/${projectId}`);  const handleViewProject = (projectId) => {  const navigate = useNavigate();const Dashboard = () => {// ...existing code...import { MetricsCard } from "./MetricsCard";
 import { MotionContainer } from "./MotionContainer";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { AreaChart, Bar, CartesianGrid, ResponsiveContainer, XAxis, YAxis, Tooltip, Area, BarChart as RechartsBarChart } from "recharts";
