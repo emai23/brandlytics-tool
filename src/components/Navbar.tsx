@@ -1,9 +1,10 @@
 
 import { cn } from "@/lib/utils";
-import { BarChart3, Briefcase, ChevronDown, Home, LineChart, PieChart, Search, Settings, Users } from "lucide-react";
+import { BarChart3, ChevronDown, Home, LogOut, Settings, User, FolderOpen } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 
 interface NavItem {
   label: string;
@@ -13,67 +14,47 @@ interface NavItem {
 }
 
 export const Navbar = () => {
-  const [activeSection, setActiveSection] = useState("dashboard");
+  const location = useLocation();
+  const [isLoggedIn, setIsLoggedIn] = useState(true); // Temporary state for demo purposes
   
   const navItems: NavItem[] = [
     {
       label: "Dashboard",
-      href: "#dashboard",
+      href: "/",
       icon: <Home className="w-4 h-4 mr-2" />,
-      active: activeSection === "dashboard"
+      active: location.pathname === "/"
     },
     {
-      label: "Brand Analysis",
-      href: "#brand-analysis",
-      icon: <Briefcase className="w-4 h-4 mr-2" />,
-      active: activeSection === "brand-analysis"
+      label: "Projects",
+      href: "/create-project",
+      icon: <FolderOpen className="w-4 h-4 mr-2" />,
+      active: location.pathname === "/create-project"
     },
     {
-      label: "Market Trends",
-      href: "#market-trends",
-      icon: <LineChart className="w-4 h-4 mr-2" />,
-      active: activeSection === "market-trends"
-    },
-    {
-      label: "Competitor Analysis",
-      href: "#competitor-analysis",
-      icon: <Users className="w-4 h-4 mr-2" />,
-      active: activeSection === "competitor-analysis"
-    },
-    {
-      label: "Research Tools",
-      href: "#research-tools",
-      icon: <BarChart3 className="w-4 h-4 mr-2" />,
-      active: activeSection === "research-tools"
+      label: "Account",
+      href: "/account",
+      icon: <User className="w-4 h-4 mr-2" />,
+      active: location.pathname === "/account"
     }
   ];
-  
-  const handleNavClick = (section: string) => {
-    setActiveSection(section);
-    // Smooth scroll to section
-    const element = document.getElementById(section);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
+
+  const toggleLoginState = () => {
+    setIsLoggedIn(!isLoggedIn);
   };
 
   return (
     <header className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur">
       <div className="container flex items-center justify-between h-16 px-4 md:px-6">
         <div className="flex items-center gap-2">
-          <PieChart className="w-5 h-5 text-primary" />
-          <span className="text-lg font-medium">Brandlytics</span>
+          <BarChart3 className="w-5 h-5 text-primary" />
+          <span className="text-lg font-medium">Market Research & Brand Development Tool</span>
         </div>
         
-        <nav className="hidden md:flex items-center space-x-1">
+        <nav className="flex items-center space-x-4">
           {navItems.map((item) => (
-            <a
+            <Link
               key={item.label}
-              href={item.href}
-              onClick={(e) => {
-                e.preventDefault();
-                handleNavClick(item.href.substring(1));
-              }}
+              to={item.href}
               className={cn(
                 "flex items-center px-3 py-2 text-sm rounded-md transition-colors",
                 item.active
@@ -83,39 +64,21 @@ export const Navbar = () => {
             >
               {item.icon}
               {item.label}
-            </a>
+            </Link>
           ))}
+          
+          {isLoggedIn && (
+            <Button 
+              variant="outline" 
+              size="sm" 
+              className="flex items-center gap-1 ml-2"
+              onClick={toggleLoginState} // For demo purposes
+            >
+              <LogOut className="h-4 w-4 mr-1" />
+              Logout
+            </Button>
+          )}
         </nav>
-        
-        <div className="flex items-center space-x-2">
-          <div className="hidden md:block relative">
-            <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground/70" />
-            <Input
-              type="search"
-              placeholder="Search..."
-              className="w-64 pl-8 rounded-md bg-background"
-            />
-          </div>
-          
-          <Button variant="ghost" size="icon" className="rounded-full">
-            <Settings className="h-5 w-5" />
-            <span className="sr-only">Settings</span>
-          </Button>
-          
-          <Button variant="ghost" size="sm" className="md:hidden">
-            <Search className="h-5 w-5" />
-            <span className="sr-only">Search</span>
-          </Button>
-          
-          <Button
-            variant="outline"
-            size="sm"
-            className="hidden md:flex items-center gap-1"
-          >
-            Projects
-            <ChevronDown className="h-4 w-4 ml-1" />
-          </Button>
-        </div>
       </div>
     </header>
   );
