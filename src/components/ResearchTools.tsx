@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { AlignLeft, BarChart2, FileText, LineChart, MessageSquare, PieChart, Search, Sliders } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
 
 const toolCards = [
   {
