@@ -1,10 +1,10 @@
 
 import { cn } from "@/lib/utils";
-import { BarChart3, ChevronDown, Home, LogOut, Settings, User, FolderOpen } from "lucide-react";
+import { BarChart3, LogIn, LogOut, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { toast } from "@/hooks/use-toast";
 
 interface NavItem {
   label: string;
@@ -15,19 +15,20 @@ interface NavItem {
 
 export const Navbar = () => {
   const location = useLocation();
-  const [isLoggedIn, setIsLoggedIn] = useState(true); // Temporary state for demo purposes
+  const navigate = useNavigate();
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // Default to not logged in
   
   const navItems: NavItem[] = [
     {
       label: "Dashboard",
       href: "/",
-      icon: <Home className="w-4 h-4 mr-2" />,
+      icon: <User className="w-4 h-4 mr-2" />,
       active: location.pathname === "/"
     },
     {
       label: "Projects",
       href: "/create-project",
-      icon: <FolderOpen className="w-4 h-4 mr-2" />,
+      icon: <BarChart3 className="w-4 h-4 mr-2" />,
       active: location.pathname === "/create-project"
     },
     {
@@ -38,8 +39,17 @@ export const Navbar = () => {
     }
   ];
 
-  const toggleLoginState = () => {
-    setIsLoggedIn(!isLoggedIn);
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+    toast({
+      title: "Logged out",
+      description: "You have been successfully logged out.",
+    });
+    navigate("/login");
+  };
+
+  const handleLogin = () => {
+    navigate("/login");
   };
 
   return (
@@ -67,15 +77,25 @@ export const Navbar = () => {
             </Link>
           ))}
           
-          {isLoggedIn && (
+          {isLoggedIn ? (
             <Button 
               variant="outline" 
               size="sm" 
               className="flex items-center gap-1 ml-2"
-              onClick={toggleLoginState} // For demo purposes
+              onClick={handleLogout}
             >
               <LogOut className="h-4 w-4 mr-1" />
               Logout
+            </Button>
+          ) : (
+            <Button 
+              variant="outline" 
+              size="sm" 
+              className="flex items-center gap-1 ml-2"
+              onClick={handleLogin}
+            >
+              <LogIn className="h-4 w-4 mr-1" />
+              Login
             </Button>
           )}
         </nav>
