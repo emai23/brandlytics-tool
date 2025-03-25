@@ -16,5 +16,11 @@
     "ui": "@/components/ui",
     "lib": "@/lib",
     "hooks": "@/hooks"
-  }
+  },
+  "packageManager": "npm",
+  "components": [
+    "tabs",
+    "progress",
+    "badge"
+  ]
 }
