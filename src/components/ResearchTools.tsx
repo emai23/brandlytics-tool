@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { AlignLeft, BarChart2, FileText, LineChart, MessageSquare, PieChart, Search, Sliders } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { Link } from "react-router-dom";
 
 const toolCards = [
   {
@@ -50,11 +51,18 @@ export const ResearchTools = () => {
   return (
     <section id="research-tools" className="py-12 border-t">
       <MotionContainer delay={100}>
-        <div className="mb-8">
-          <h2 className="text-3xl font-bold tracking-tight">Research Tools</h2>
-          <p className="text-muted-foreground mt-1">
-            Powerful tools to conduct market research and analyze results.
-          </p>
+        <div className="mb-8 flex justify-between items-center">
+          <div>
+            <h2 className="text-3xl font-bold tracking-tight">Research Tools</h2>
+            <p className="text-muted-foreground mt-1">
+              Powerful tools to conduct market research and analyze results.
+            </p>
+          </div>
+          <Link to="/create-project">
+            <Button size="lg" className="px-6">
+              Create New Project
+            </Button>
+          </Link>
         </div>
       </MotionContainer>
 
@@ -137,6 +145,16 @@ export const ResearchTools = () => {
               </TabsContent>
             </Tabs>
           </CardContent>
+          <CardFooter className="bg-secondary/30 border-t px-6 py-4">
+            <div className="w-full flex flex-col sm:flex-row justify-between items-center gap-4">
+              <p className="text-sm text-muted-foreground">
+                Start a structured research project with our step-by-step workflow
+              </p>
+              <Link to="/create-project">
+                <Button className="whitespace-nowrap">Start Guided Research</Button>
+              </Link>
+            </div>
+          </CardFooter>
         </Card>
       </MotionContainer>
 
