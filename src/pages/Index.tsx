@@ -1,5 +1,5 @@
 import { Navbar } from "@/components/Navbar";
-import Dashboard from "@/components/Dashboard";
+import { Dashboard } from "@/components/Dashboard";
 import { ProjectStatusChart } from "@/components/ProjectStatusChart";
 import { ProjectTimeline } from "@/components/ProjectTimeline";
 import { ResourceAllocation } from "@/components/ResourceAllocation";
