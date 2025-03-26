@@ -1,4 +1,3 @@
-
 import React, { Component, ReactNode } from "react";
 
 interface ErrorBoundaryProps {
@@ -41,7 +40,7 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
           <h2 className="text-xl font-bold text-red-600">Something went wrong.</h2>
           <button
             onClick={this.handleRetry}
-            className="mt-4 px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors"
+            className="mt-4 px-4 py-2 bg-blue-500 text-white rounded"
           >
             Retry
           </button>

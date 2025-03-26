@@ -16,34 +16,34 @@ interface MetricsCardProps {
   className?: string;
 }
 
-export const MetricsCard: React.FC<MetricsCardProps> = ({
+export const MetricsCard = ({
   title,
   value,
   description,
   icon,
   change,
   className,
-}) => {
+}: MetricsCardProps) => {
   return (
     <MotionContainer>
-      <div className={cn("metrics-card relative overflow-hidden", className)}>
-        <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0 border-b border-white/10">
+      <Card className={cn("hover-lift overflow-hidden", className)}>
+        <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
           <CardTitle className="text-sm font-medium text-muted-foreground">
             {title}
           </CardTitle>
-          {icon && <div className="text-primary">{icon}</div>}
+          {icon && <div className="text-muted-foreground">{icon}</div>}
         </CardHeader>
-        <CardContent className="pt-4">
-          <div className="text-2xl font-bold text-white">{value}</div>
+        <CardContent>
+          <div className="text-2xl font-bold">{value}</div>
           {description && (
             <p className="mt-1 text-xs text-muted-foreground">{description}</p>
           )}
           {change && (
             <div
-              className={cn("mt-3 text-xs font-medium flex items-center", {
-                "text-emerald-400": change.type === "increase",
-                "text-rose-400": change.type === "decrease",
-                "text-slate-400": change.type === "neutral",
+              className={cn("mt-2 text-xs font-medium flex items-center", {
+                "text-emerald-500": change.type === "increase",
+                "text-rose-500": change.type === "decrease",
+                "text-slate-500": change.type === "neutral",
               })}
             >
               {change.type === "increase" && (
@@ -92,8 +92,7 @@ export const MetricsCard: React.FC<MetricsCardProps> = ({
             </div>
           )}
         </CardContent>
-        <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary/50 to-transparent"></div>
-      </div>
+      </Card>
     </MotionContainer>
   );
 };
