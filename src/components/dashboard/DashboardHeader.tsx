@@ -9,9 +9,9 @@ interface DashboardHeaderProps {
 export const DashboardHeader = ({ title, description }: DashboardHeaderProps) => {
   return (
     <MotionContainer delay={100}>
-      <div className="mb-8">
-        <h2 className="text-3xl font-bold tracking-tight">{title}</h2>
-        <p className="text-muted-foreground mt-1">
+      <div>
+        <h2 className="text-3xl font-bold tracking-tight mb-2">{title}</h2>
+        <p className="text-muted-foreground">
           {description}
         </p>
       </div>

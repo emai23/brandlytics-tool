@@ -1,5 +1,4 @@
 
-import { useNavigate } from "react-router-dom";
 import { MotionContainer } from "./MotionContainer";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useDashboardData } from "@/hooks/useDashboardData";
@@ -16,11 +15,10 @@ import { ProjectTrends } from "./dashboard/ProjectTrends";
 import { MarketingChannelEffectiveness } from "./dashboard/MarketingChannelEffectiveness";
 
 export const Dashboard = () => {
-  const navigate = useNavigate();
   const { data, isLoading } = useDashboardData();
 
   return (
-    <section id="dashboard" className="py-8">
+    <section id="dashboard" className="space-y-8">
       <DashboardHeader 
         title="Market Intelligence Dashboard" 
         description="Overview of key market metrics and project performance indicators."
@@ -30,7 +28,7 @@ export const Dashboard = () => {
       <PerformanceMetrics metrics={data.projectMetrics} isLoading={isLoading} />
 
       {/* Projects Overview & Status */}
-      <div className="grid gap-6 md:grid-cols-3 mb-8">
+      <div className="grid gap-6 md:grid-cols-3">
         {/* Projects List */}
         <ProjectsOverview projects={data.projects} isLoading={isLoading} />
 
@@ -43,7 +41,7 @@ export const Dashboard = () => {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="h-[300px]">
+            <div className="h-[300px] w-full">
               <ProjectStatusChart />
             </div>
           </CardContent>
@@ -52,7 +50,7 @@ export const Dashboard = () => {
 
       {/* Project Timeline Visualization */}
       <MotionContainer delay={300} animation="slide-up">
-        <Card className="mb-8">
+        <Card>
           <CardHeader>
             <CardTitle>Project Timeline</CardTitle>
             <CardDescription>
@@ -60,7 +58,7 @@ export const Dashboard = () => {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="h-[350px]">
+            <div className="h-[350px] w-full">
               <ProjectTimeline />
             </div>
           </CardContent>
@@ -68,7 +66,7 @@ export const Dashboard = () => {
       </MotionContainer>
 
       {/* Two-column layout for additional metrics */}
-      <div className="grid gap-6 grid-cols-1 md:grid-cols-2 mb-8">
+      <div className="grid gap-6 grid-cols-1 md:grid-cols-2">
         {/* Project Creation and Completion Trends */}
         <ProjectTrends data={data.projectTrendData} isLoading={isLoading} />
 
@@ -78,7 +76,7 @@ export const Dashboard = () => {
 
       {/* Resource Allocation Section */}
       <MotionContainer delay={450} animation="slide-up">
-        <Card className="mb-8">
+        <Card>
           <CardHeader>
             <CardTitle>Resource Allocation</CardTitle>
             <CardDescription>
@@ -86,7 +84,7 @@ export const Dashboard = () => {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="h-[350px]">
+            <div className="h-[350px] w-full">
               <ResourceAllocation />
             </div>
           </CardContent>
@@ -103,7 +101,7 @@ export const Dashboard = () => {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="h-[350px] overflow-auto">
+            <div className="h-[350px] w-full overflow-auto">
               <RecentActivity />
             </div>
           </CardContent>

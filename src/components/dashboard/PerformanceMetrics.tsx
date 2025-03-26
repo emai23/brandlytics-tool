@@ -12,7 +12,7 @@ interface PerformanceMetricsProps {
 export const PerformanceMetrics = ({ metrics, isLoading = false }: PerformanceMetricsProps) => {
   if (isLoading) {
     return (
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4 mb-8">
+      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
         {[1, 2, 3, 4].map((index) => (
           <MotionContainer key={index}>
             <div className="rounded-lg border bg-card/80 backdrop-blur-md p-6 h-[120px] animate-pulse">
@@ -27,7 +27,7 @@ export const PerformanceMetrics = ({ metrics, isLoading = false }: PerformanceMe
   }
 
   return (
-    <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4 mb-8">
+    <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
       <MetricsCard
         title="Total Projects"
         value={metrics.total.toString()}
