@@ -4,7 +4,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Navbar } from "@/components/Navbar";
 import React, { StrictMode, Suspense } from "react"; // Added Suspense for lazy loading
-import ErrorBoundary from "@/components/ErrorBoundary"; // Create an ErrorBoundary component
+import ErrorBoundary from "@/components/ErrorBoundary"; // 
 import Loading from "@/components/Loading"; // Create a Loading component for fallback
 
 // Lazy-loaded pages
