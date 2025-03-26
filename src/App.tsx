@@ -18,6 +18,19 @@ const Register = React.lazy(() => import("./pages/Register"));
 
 const queryClient = new QueryClient();
 
+const CustomFallback = () => (
+  <div className="p-4 text-center">
+    <h2 className="text-xl font-bold text-red-600">Oops! Something went wrong.</h2>
+    <p className="text-sm text-muted-foreground">Please try refreshing the page or contact support if the issue persists.</p>
+    <button
+      onClick={() => window.location.reload()}
+      className="mt-4 px-4 py-2 bg-blue-500 text-white rounded"
+    >
+      Refresh Page
+    </button>
+  </div>
+);
+
 const App = () => (
   <StrictMode>
     <QueryClientProvider client={queryClient}>
@@ -27,7 +40,7 @@ const App = () => (
           <div className="min-h-screen flex flex-col">
             <Navbar />
             <main className="flex-1">
-              <ErrorBoundary>
+              <ErrorBoundary fallback={<CustomFallback />}>
                 <Suspense fallback={<Loading />}>
                   <Routes>
                     <Route path="/" element={<Index />} />

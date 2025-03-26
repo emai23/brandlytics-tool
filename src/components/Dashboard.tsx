@@ -229,6 +229,7 @@ export const Dashboard = () => {
               <CardDescription>
                 Distribution of engagement across marketing channels
               </CardDescription>
+            </CardHeader>
             <CardHeader>
               <CardTitle>Marketing Channel Effectiveness</CardTitle>
               <CardDescription>
