@@ -22,7 +22,7 @@ export const Navbar = () => {
     {
       label: "Dashboard",
       href: "/",
-      icon: <User className="w-4 h-4 mr-2" />,
+      icon: <BarChart3 className="w-4 h-4 mr-2" />,
       active: location.pathname === "/"
     },
     {
@@ -53,11 +53,11 @@ export const Navbar = () => {
   };
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur">
+    <header className="sticky top-0 z-40 w-full border-b border-white/10 backdrop-blur-md bg-background/30">
       <div className="container flex items-center justify-between h-16 px-4 md:px-6">
         <div className="flex items-center gap-2">
           <BarChart3 className="w-5 h-5 text-primary" />
-          <span className="text-lg font-medium">Market Research & Brand Development Tool</span>
+          <span className="text-lg font-medium text-gradient">Market Research & Brand Development Tool</span>
         </div>
         
         <nav className="flex items-center space-x-4">
@@ -66,10 +66,10 @@ export const Navbar = () => {
               key={item.label}
               to={item.href}
               className={cn(
-                "flex items-center px-3 py-2 text-sm rounded-md transition-colors",
+                "flex items-center nav-item transition-all duration-200",
                 item.active
-                  ? "bg-accent text-accent-foreground font-medium"
-                  : "hover:bg-muted text-muted-foreground"
+                  ? "nav-item-active"
+                  : "nav-item-inactive"
               )}
             >
               {item.icon}
@@ -81,7 +81,7 @@ export const Navbar = () => {
             <Button 
               variant="outline" 
               size="sm" 
-              className="flex items-center gap-1 ml-2"
+              className="flex items-center gap-1 ml-2 border-white/10 hover:bg-primary/20 hover:text-white"
               onClick={handleLogout}
             >
               <LogOut className="h-4 w-4 mr-1" />
@@ -91,7 +91,7 @@ export const Navbar = () => {
             <Button 
               variant="outline" 
               size="sm" 
-              className="flex items-center gap-1 ml-2"
+              className="flex items-center gap-1 ml-2 border-white/10 hover:bg-primary/20 hover:text-white"
               onClick={handleLogin}
             >
               <LogIn className="h-4 w-4 mr-1" />

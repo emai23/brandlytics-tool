@@ -1,11 +1,12 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Navbar } from "@/components/Navbar";
-import React, { StrictMode, Suspense } from "react"; // Added Suspense for lazy loading
-import ErrorBoundary from "@/components/ErrorBoundary"; // 
-import Loading from "@/components/Loading"; // Create a Loading component for fallback
+import React, { StrictMode, Suspense } from "react";
+import ErrorBoundary from "@/components/ErrorBoundary";
+import Loading from "@/components/Loading";
 
 // Lazy-loaded pages
 const Index = React.lazy(() => import("./pages/Index"));
@@ -24,14 +25,14 @@ const CustomFallback = () => (
     <p className="text-sm text-muted-foreground">Please try refreshing the page or contact support if the issue persists.</p>
     <button
       onClick={() => window.location.reload()}
-      className="mt-4 px-4 py-2 bg-blue-500 text-white rounded"
+      className="mt-4 px-4 py-2 bg-primary text-white rounded-md hover:bg-primary/90 transition-colors"
     >
       Refresh Page
     </button>
   </div>
 );
 
-const App = () => (
+const App: React.FC = () => (
   <StrictMode>
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>

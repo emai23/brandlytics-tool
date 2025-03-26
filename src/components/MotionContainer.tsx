@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 interface MotionContainerProps extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode;
   delay?: number;
-  animation?: "fade-in" | "scale-in" | "slide-in" | "slide-up";
+  animation?: "fade-in" | "scale-in" | "slide-up";
 }
 
 export const MotionContainer = ({
@@ -15,11 +15,12 @@ export const MotionContainer = ({
   className,
   ...props
 }: MotionContainerProps) => {
+  const animationClass = `animate-${animation}`;
   const delayStyle = delay ? { animationDelay: `${delay}ms` } : {};
   
   return (
     <div
-      className={cn(`animate-${animation}`, className)}
+      className={cn(animationClass, className)}
       style={delayStyle}
       {...props}
     >
