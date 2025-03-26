@@ -1,4 +1,3 @@
-
 import { useNavigate } from "react-router-dom";
 import { BarChart, LineChart, PieChart, TrendingUp, Users, Calendar, FileText, CheckCircle, Clock, Package, BarChart2 } from "lucide-react";
 import { MetricsCard } from "./MetricsCard";
@@ -139,7 +138,7 @@ const Dashboard = () => {
                             <span>Completion</span>
                             <span>{project.completion}%</span>
                           </div>
-                          <Progress value={project.completion} className="h-2 bg-secondary" indicatorClassName="bg-primary" />
+                          <Progress value={project.completion} className="h-2 bg-secondary" />
                         </div>
                       </CardContent>
                     </Card>
