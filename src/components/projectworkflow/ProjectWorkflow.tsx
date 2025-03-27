@@ -1,9 +1,10 @@
 import { Card, CardContent } from "@/components/ui/card";
-import { MotionContainer } from "./MotionContainer";
+import { MotionContainer } from "../MotionContainer";
 import { WorkflowHeader } from "./WorkflowHeader";
 import { WorkflowPhaseItem } from "./WorkflowPhaseItem";
 import { useWorkflow } from "@/hooks/useWorkflow";
 import { WorkflowPhase } from "@/types/workflow";
+import { PhaseType } from '@/types/phase';
 
 // Define workflow phases with proper typing
 const workflowPhases: WorkflowPhase[] = [
@@ -12,7 +13,7 @@ const workflowPhases: WorkflowPhase[] = [
     name: "Market Research",
     description: "Analyze market trends, opportunities, and competitive landscape",
     completed: false,
-    type: "market_research",
+    PhaseType: "market_research",
     status: "not_started",
     progress: 0,
     order: 1,

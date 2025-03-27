@@ -1,7 +1,7 @@
 
 import { MotionContainer } from "@/components/MotionContainer";
 import { Navbar } from "@/components/Navbar";
-import { ProjectWorkflow } from "@/components/ProjectWorkflow";
+import { ProjectWorkflow } from "@/components/projectworkflow/ProjectWorkflow";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
