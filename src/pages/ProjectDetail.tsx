@@ -1,7 +1,7 @@
 // src/pages/ProjectDetail.tsx
 import { useParams } from "react-router-dom";
 import { ProjectHeader } from "@/components/project/ProjectHeader";
-import { ProjectWorkflow } from "@/components/project/ProjectWorkflow";
+import { ProjectWorkflow } from "@/components/projectworkflow/ProjectWorkflow";
 import { ProjectInsights } from "@/components/project/ProjectInsights";
 import { ProjectTabs } from "@/components/project/ProjectTabs";
 import { useProject } from "@/hooks/useProject";

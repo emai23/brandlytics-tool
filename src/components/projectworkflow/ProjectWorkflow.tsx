@@ -13,9 +13,11 @@ const workflowPhases: WorkflowPhase[] = [
     name: "Market Research",
     description: "Analyze market trends, opportunities, and competitive landscape",
     completed: false,
-    PhaseType: "market_research",
+    type: PhaseType.MARKET_RESEARCH,
     status: "not_started",
     progress: 0,
+    startedAt: undefined,
+    completedAt: undefined,
     order: 1,
   },
   {
@@ -23,7 +25,7 @@ const workflowPhases: WorkflowPhase[] = [
     name: "Target Audience",
     description: "Define and analyze ideal customer profiles and segments",
     completed: false,
-    type: "target_audience",
+    type: PhaseType.TARGET_AUDIENCE,
     status: "not_started",
     progress: 0,
     order: 2,
@@ -33,7 +35,7 @@ const workflowPhases: WorkflowPhase[] = [
     name: "Brand Development",
     description: "Create brand identity, positioning, and messaging framework",
     completed: false,
-    type: "brand_development",
+    type: PhaseType.BRAND_DEVELOPMENT,
     status: "not_started",
     progress: 0,
     order: 3,
@@ -43,7 +45,7 @@ const workflowPhases: WorkflowPhase[] = [
     name: "Brand Strategy",
     description: "Develop actionable strategy for brand growth and differentiation",
     completed: false,
-    type: "brand_strategy",
+    type: PhaseType.BRAND_STRATEGY,
     status: "not_started",
     progress: 0,
     order: 4,
@@ -53,14 +55,40 @@ const workflowPhases: WorkflowPhase[] = [
     name: "Content Strategy",
     description: "Plan content creation, distribution, and measurement approach",
     completed: false,
-    type: "content_strategy",
+    type: PhaseType.CONTENT_STRATEGY,
     status: "not_started",
     progress: 0,
     order: 5,
   },
 ];
 
-export const ProjectWorkflow = () => {
+// Define props interface to maintain compatibility with existing code
+interface ProjectWorkflowProps {
+  project?: {
+    currentPhase: string;
+    phases: {
+      id: string;
+      status: 'completed' | 'in_progress' | 'not_started';
+      progress: number;
+    }[];
+  };
+}
+
+export const ProjectWorkflow: React.FC<ProjectWorkflowProps> = ({ project }) => {
+  // If project is provided, use its data to initialize phases
+  const initialPhases = project ? 
+  workflowPhases.map(phase => {
+    const projectPhase = project.phases.find(p => p.id === phase.id);
+    return {
+      ...phase,
+      completed: projectPhase?.status === 'completed',
+      status: projectPhase?.status || 'not_started',
+      progress: projectPhase?.progress || 0
+    };
+  }) : workflowPhases;
+
+  const initialActivePhase = project?.currentPhase || "market_research";
+
   // Use the custom hook for workflow state management
   const {
     phases,

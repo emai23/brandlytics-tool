@@ -55,7 +55,7 @@ export interface PhaseTransition {
  */
 export interface WorkflowPhase {
   id: string;
-  name: string; 
+  name: string;  
   description: string;
   completed: boolean;
   type: PhaseType;
@@ -63,7 +63,7 @@ export interface WorkflowPhase {
   progress: number; // 0-100
   startedAt?: string;
   completedAt?: string;
-  order: number;
+  order: number
 }
 
 /**
