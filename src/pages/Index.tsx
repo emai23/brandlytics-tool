@@ -1,3 +1,4 @@
+
 import { Navbar } from "@/components/Navbar";
 import { Dashboard } from "@/components/Dashboard";
 import { ProjectStatusChart } from "@/components/ProjectStatusChart";
@@ -8,18 +9,36 @@ import { MotionContainer } from "@/components/MotionContainer";
 
 const Index = () => {
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col theme-transition">
       <Navbar />
       <main className="flex-1">
-        <div className="container px-4 md:px-6">
-          <Dashboard />
-          <ProjectStatusChart />
-          <ProjectTimeline />
-          <ResourceAllocation />
-          <RecentActivity />
+        <div className="container px-4 md:px-6 py-6">
+          <div className="grid gap-6">
+            <div className="glass-card glass-card-dark rounded-lg p-6">
+              <Dashboard />
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="glass-card glass-card-dark rounded-lg p-6">
+                <ProjectStatusChart />
+              </div>
+              <div className="glass-card glass-card-dark rounded-lg p-6">
+                <ProjectTimeline />
+              </div>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="glass-card glass-card-dark rounded-lg p-6">
+                <ResourceAllocation />
+              </div>
+              <div className="glass-card glass-card-dark rounded-lg p-6">
+                <RecentActivity />
+              </div>
+            </div>
+          </div>
         </div>
       </main>
-      <footer className="border-t py-6">
+      <footer className="border-t py-6 theme-transition">
         <div className="container px-4 md:px-6">
           <MotionContainer animation="slide-up">
             <div className="flex flex-col md:flex-row justify-between items-center">
