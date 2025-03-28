@@ -1,5 +1,4 @@
 import { ID } from './common';
-
 /**
  * Types for dashboard components
  */
@@ -25,7 +24,7 @@ export interface Widget {
 /**
  * Project data structure
  */
-export interface dashboardProject {
+export interface DashboardProject {
   id: string;
   name: string;
   status: string;
