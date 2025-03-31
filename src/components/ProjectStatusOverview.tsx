@@ -26,7 +26,7 @@ export interface ProjectStatusOverviewProps {
     chart: number;
     projects: number;
   };
-  animation?: string;
+  animation?: "fade-in" | "scale-in" | "slide-in" | "slide-up";
 }
 
 // Default data
@@ -76,7 +76,7 @@ export const ProjectStatusOverview = ({
   projectsTitle = "Recent Projects",
   projectsDescription = "Status and progress of your latest projects",
   delay = { chart: 400, projects: 500 },
-  animation = "slide-up"
+  animation = "fade-in"
 }: ProjectStatusOverviewProps) => {
   const getStatusColor = (status: string) => {
     switch (status) {

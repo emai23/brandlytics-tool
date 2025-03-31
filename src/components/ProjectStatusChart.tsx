@@ -17,6 +17,7 @@ export interface ProjectStatusChartProps {
   title?: string;
   description?: string;
   delay?: number;
+  animation?: "fade-in" | "scale-in" | "slide-in" | "slide-up";
 }
 
 // Default data
@@ -39,11 +40,12 @@ export const ProjectStatusChart = ({
   completionData = defaultCompletionData,
   title = "Project Status Distribution",
   description = "Overview of all projects by current status",
-  delay = 300
+  delay = 300,
+  animation = "fade-in"
 }: ProjectStatusChartProps) => {
   return (
     <div className="grid gap-6 grid-cols-1 md:grid-cols-2 mb-8">
-      <MotionContainer delay={delay}>
+      <MotionContainer delay={delay} animation={animation}>
         <Card>
           <CardHeader>
             <CardTitle>{title}</CardTitle>
@@ -81,7 +83,7 @@ export const ProjectStatusChart = ({
         </Card>
       </MotionContainer>
 
-      <MotionContainer delay={delay + 50}>
+      <MotionContainer delay={delay + 50} animation={animation}>
         <Card>
           <CardHeader>
             <CardTitle>Overall Completion Progress</CardTitle>
