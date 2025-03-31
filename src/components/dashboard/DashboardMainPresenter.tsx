@@ -1,4 +1,3 @@
-
 import { useNavigate } from "react-router-dom";
 import { DashboardContainerData } from "@/types/dashboard";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -279,12 +278,48 @@ const DashboardMainPresenter = (props: DashboardContainerData) => {
             </div>
           </CardHeader>
           <CardContent>
-            <ProjectsList 
-              projects={projects} 
-              isLoading={isLoading}
-              onViewProject={handleViewProject}
-              onContinueWork={handleContinueWork}
-            />
+            <div className="space-y-4">
+              {projects.map((project) => (
+                <Card
+                  key={project.id}
+                  className="hover:shadow-md transition-shadow overflow-hidden backdrop-blur-sm bg-card/80 border border-border/50"
+                >
+                  <CardContent className="p-4">
+                    <div className="space-y-4">
+                      <div className="flex justify-between items-center">
+                        <h4 className="font-medium truncate max-w-[70%]">{project.name}</h4>
+                        <Badge variant={project.status === "completed" ? "default" : "secondary"}>
+                          {project.status.replace('_', ' ').replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase())}
+                        </Badge>
+                      </div>
+                      <div className="flex justify-between text-xs text-muted-foreground">
+                        <span>Completion</span>
+                        <span>{project.completion}%</span>
+                      </div>
+                      <Progress value={project.completion} className="h-2" />
+                      <div className="flex justify-between gap-2 pt-2">
+                        <Button 
+                          variant="outline" 
+                          size="sm" 
+                          className="flex-1" 
+                          onClick={() => handleViewProject(project.id)}
+                        >
+                          <FileEdit className="w-4 h-4 mr-1" /> Details
+                        </Button>
+                        <Button 
+                          variant="default" 
+                          size="sm" 
+                          className="flex-1" 
+                          onClick={() => handleContinueWork(project.id)}
+                        >
+                          Continue <ArrowRight className="w-4 h-4 ml-1" />
+                        </Button>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
           </CardContent>
         </Card>
       </MotionContainer>

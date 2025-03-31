@@ -123,7 +123,7 @@ export const ProjectTimeline = ({
                       strokeDasharray="3 3"
                       label={{ 
                         position: 'top', 
-                        value: <Flag size={12} />, 
+                        value: "Milestone", 
                         fill: 'rgba(249, 168, 37, 0.9)',
                       }} 
                     />

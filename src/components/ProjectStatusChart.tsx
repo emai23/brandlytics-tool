@@ -18,6 +18,7 @@ export interface ProjectStatusChartProps {
   description?: string;
   delay?: number;
   animation?: "fade-in" | "scale-in" | "slide-in" | "slide-up";
+  isLoading?: boolean;
 }
 
 // Default data
@@ -41,8 +42,38 @@ export const ProjectStatusChart = ({
   title = "Project Status Distribution",
   description = "Overview of all projects by current status",
   delay = 300,
-  animation = "fade-in"
+  animation = "fade-in",
+  isLoading = false
 }: ProjectStatusChartProps) => {
+  if (isLoading) {
+    return (
+      <div className="grid gap-6 grid-cols-1 md:grid-cols-2 h-full">
+        <Card className="h-full backdrop-blur-sm bg-card/80 border border-border/50 shadow-md">
+          <CardHeader className="overflow-hidden">
+            <CardTitle className="text-xl truncate">{title}</CardTitle>
+            <CardDescription className="text-sm line-clamp-2">
+              {description}
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="p-4 flex items-center justify-center">
+            <div className="text-center">Loading chart data...</div>
+          </CardContent>
+        </Card>
+        <Card className="h-full backdrop-blur-sm bg-card/80 border border-border/50 shadow-md">
+          <CardHeader className="overflow-hidden">
+            <CardTitle className="text-xl truncate">Overall Completion Progress</CardTitle>
+            <CardDescription className="text-sm line-clamp-2">
+              Progress across different project categories
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="flex items-center justify-center">
+            <div className="text-center">Loading completion data...</div>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
+  
   return (
     <div className="grid gap-6 grid-cols-1 md:grid-cols-2">
       <MotionContainer delay={delay} animation={animation}>
