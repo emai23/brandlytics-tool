@@ -14,16 +14,16 @@ export default function ProjectDetail() {
   const navigate = useNavigate();
   const { project, isLoading, error } = useProject(id);
   
-  if (isLoading) return <div className="container py-8">Loading project details...</div>;
-  if (error) return <div className="container py-8">Error loading project: {error.message}</div>;
-  if (!project) return <div className="container py-8">Project not found</div>;
+  if (isLoading) return <div className="py-8">Loading project details...</div>;
+  if (error) return <div className="py-8">Error loading project: {error.message}</div>;
+  if (!project) return <div className="py-8">Project not found</div>;
   
   const handleViewDashboard = () => {
     navigate(`/projects/${id}/dashboard`);
   };
   
   return (
-    <div className="container py-6 space-y-6">
+    <div className="space-y-6">
       <div className="flex justify-between items-center">
         <h1 className="text-3xl font-bold">Project Details</h1>
         <Button 

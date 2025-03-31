@@ -4,11 +4,9 @@ import { MotionContainer } from "@/components/MotionContainer";
 
 const Index = () => {
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="flex flex-col">
       <main className="flex-1">
-        <div className="container px-4 md:px-6">
-          <DashboardMainContainer />
-        </div>
+        <DashboardMainContainer />
       </main>
       <footer className="border-t py-6">
         <div className="container px-4 md:px-6">

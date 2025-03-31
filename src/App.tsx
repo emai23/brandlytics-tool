@@ -3,10 +3,10 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { Navbar } from "@/components/Navbar";
 import React, { StrictMode, Suspense } from "react"; 
 import ErrorBoundary from "@/components/ErrorBoundary";
 import Loading from "@/components/Loading";
+import { AppSidebar } from "@/components/Sidebar";
 
 // Lazy-loaded pages
 const Index = React.lazy(() => import("./pages/Index"));
@@ -41,27 +41,28 @@ const App = () => (
       <TooltipProvider>
         <Toaster />
         <Router>
-          <div className="min-h-screen flex flex-col">
-            <Navbar />
-            <main className="flex-1">
+          <div className="flex min-h-screen">
+            <AppSidebar />
+            <main className="flex-1 overflow-auto">
               <ErrorBoundary fallback={<CustomFallback />}>
                 <Suspense fallback={<Loading />}>
-                  <Routes>
-                    <Route path="/" element={<Index />} />
-                    <Route path="/dashboard" element={<DashboardMainContainer />} />
-                    <Route path="/create-project" element={<ProjectCreation />} />
-                    <Route path="/account" element={<Account />} />
-                    <Route path="/login" element={<Login />} />
-                    <Route path="/register" element={<Register />} />
-                    <Route path="/projects/:id" element={<ProjectDetail />} />
-                    <Route path="/projects/:id/dashboard" element={<DashboardProjectContainer />} />
-                    {/* Add all custom routes above the catch-all "*" route */}
-                    <Route path="*" element={<NotFound />} />
-                  </Routes>
+                  <div className="container py-6 md:py-8 px-4">
+                    <Routes>
+                      <Route path="/" element={<Index />} />
+                      <Route path="/dashboard" element={<DashboardMainContainer />} />
+                      <Route path="/create-project" element={<ProjectCreation />} />
+                      <Route path="/account" element={<Account />} />
+                      <Route path="/login" element={<Login />} />
+                      <Route path="/register" element={<Register />} />
+                      <Route path="/projects/:id" element={<ProjectDetail />} />
+                      <Route path="/projects/:id/dashboard" element={<DashboardProjectContainer />} />
+                      {/* Add all custom routes above the catch-all "*" route */}
+                      <Route path="*" element={<NotFound />} />
+                    </Routes>
+                  </div>
                 </Suspense>
               </ErrorBoundary>
             </main>
-            {/* Optional footer content */}
           </div>
         </Router>
       </TooltipProvider>
