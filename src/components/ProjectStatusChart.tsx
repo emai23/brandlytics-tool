@@ -46,15 +46,15 @@ export const ProjectStatusChart = ({
   return (
     <div className="grid gap-6 grid-cols-1 md:grid-cols-2 mb-8">
       <MotionContainer delay={delay} animation={animation}>
-        <Card>
+        <Card className="glass-effect h-full overflow-hidden">
           <CardHeader>
-            <CardTitle>{title}</CardTitle>
-            <CardDescription>
+            <CardTitle className="text-xl">{title}</CardTitle>
+            <CardDescription className="text-sm">
               {description}
             </CardDescription>
           </CardHeader>
-          <CardContent>
-            <div className="h-[300px]">
+          <CardContent className="p-4">
+            <div className="h-[250px] chart-container">
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
                   <Pie
@@ -62,20 +62,34 @@ export const ProjectStatusChart = ({
                     cx="50%"
                     cy="50%"
                     innerRadius={60}
-                    outerRadius={90}
+                    outerRadius={80}
                     paddingAngle={2}
                     dataKey="value"
                     label={({ name, percent }) => `${name} (${(percent * 100).toFixed(0)}%)`}
-                    labelLine={false}
+                    labelLine={{ stroke: 'rgba(255,255,255,0.3)', strokeWidth: 1 }}
                   >
                     {statusData.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={entry.color} />
+                      <Cell key={`cell-${index}`} fill={entry.color} strokeWidth={1} />
                     ))}
                   </Pie>
                   <Tooltip 
                     formatter={(value) => [`${value} Projects`, 'Count']}
+                    contentStyle={{
+                      backgroundColor: 'rgba(255, 255, 255, 0.85)',
+                      border: '1px solid rgba(255, 255, 255, 0.2)',
+                      borderRadius: '8px',
+                      boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
+                      backdropFilter: 'blur(8px)'
+                    }}
                   />
-                  <Legend />
+                  <Legend 
+                    layout="horizontal" 
+                    verticalAlign="bottom" 
+                    align="center"
+                    wrapperStyle={{
+                      paddingTop: '10px'
+                    }}
+                  />
                 </PieChart>
               </ResponsiveContainer>
             </div>
@@ -84,19 +98,19 @@ export const ProjectStatusChart = ({
       </MotionContainer>
 
       <MotionContainer delay={delay + 50} animation={animation}>
-        <Card>
+        <Card className="glass-effect h-full overflow-hidden">
           <CardHeader>
-            <CardTitle>Overall Completion Progress</CardTitle>
-            <CardDescription>
+            <CardTitle className="text-xl">Overall Completion Progress</CardTitle>
+            <CardDescription className="text-sm">
               Progress across different project categories
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="space-y-6">
+            <div className="space-y-6 overflow-hidden">
               {completionData.map((item, index) => (
                 <div key={index} className="space-y-2">
                   <div className="flex justify-between">
-                    <span className="text-sm font-medium">{item.name}</span>
+                    <span className="text-sm font-medium text-truncate max-w-[70%]">{item.name}</span>
                     <span className="text-sm text-muted-foreground">{item.completion}%</span>
                   </div>
                   <Progress value={item.completion} className="h-2" />

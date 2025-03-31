@@ -81,15 +81,15 @@ export const ProjectStatusOverview = ({
   const getStatusColor = (status: string) => {
     switch (status) {
       case "completed":
-        return "bg-green-100 text-green-800";
+        return "bg-green-100/80 text-green-800 dark:bg-green-900/30 dark:text-green-300";
       case "in_progress":
-        return "bg-blue-100 text-blue-800";
+        return "bg-blue-100/80 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300";
       case "not_started":
-        return "bg-slate-100 text-slate-800";
+        return "bg-slate-100/80 text-slate-800 dark:bg-slate-800/30 dark:text-slate-300";
       case "on_hold":
-        return "bg-amber-100 text-amber-800";
+        return "bg-amber-100/80 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300";
       default:
-        return "bg-slate-100 text-slate-800";
+        return "bg-slate-100/80 text-slate-800 dark:bg-slate-800/30 dark:text-slate-300";
     }
   };
 
@@ -102,15 +102,15 @@ export const ProjectStatusOverview = ({
   return (
     <div className="grid gap-6 grid-cols-1 md:grid-cols-2 mt-8">
       <MotionContainer delay={delay.chart} animation={animation}>
-        <Card>
+        <Card className="glass-effect h-full overflow-hidden">
           <CardHeader>
-            <CardTitle>{chartTitle}</CardTitle>
-            <CardDescription>
+            <CardTitle className="text-xl">{chartTitle}</CardTitle>
+            <CardDescription className="text-sm">
               {chartDescription}
             </CardDescription>
           </CardHeader>
-          <CardContent>
-            <div className="h-[300px]">
+          <CardContent className="p-4">
+            <div className="h-[260px] chart-container">
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
                   <Pie
@@ -118,22 +118,24 @@ export const ProjectStatusOverview = ({
                     cx="50%"
                     cy="50%"
                     innerRadius={60}
-                    outerRadius={90}
+                    outerRadius={80}
                     paddingAngle={2}
                     dataKey="value"
                     label={({ name, percent }) => `${name} (${(percent * 100).toFixed(0)}%)`}
-                    labelLine={false}
+                    labelLine={{ stroke: 'rgba(255,255,255,0.3)', strokeWidth: 1 }}
                   >
                     {statusData.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={entry.color} />
+                      <Cell key={`cell-${index}`} fill={entry.color} strokeWidth={1} />
                     ))}
                   </Pie>
                   <Tooltip 
                     formatter={(value) => [`${value} Projects`, 'Count']}
-                    contentStyle={{ 
-                      background: "hsl(var(--background))", 
-                      border: "1px solid hsl(var(--border))", 
-                      borderRadius: "var(--radius)" 
+                    contentStyle={{
+                      backgroundColor: 'rgba(255, 255, 255, 0.85)',
+                      border: '1px solid rgba(255, 255, 255, 0.2)',
+                      borderRadius: '8px',
+                      boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
+                      backdropFilter: 'blur(8px)'
                     }}
                   />
                 </PieChart>
@@ -146,7 +148,7 @@ export const ProjectStatusOverview = ({
                     className="w-3 h-3 rounded-full mr-2" 
                     style={{ backgroundColor: status.color }}
                   />
-                  <span className="text-sm">{status.name}: {status.value}</span>
+                  <span className="text-sm text-truncate">{status.name}: {status.value}</span>
                 </div>
               ))}
             </div>
@@ -155,31 +157,31 @@ export const ProjectStatusOverview = ({
       </MotionContainer>
 
       <MotionContainer delay={delay.projects} animation={animation}>
-        <Card>
+        <Card className="glass-effect h-full overflow-hidden">
           <CardHeader>
-            <CardTitle>{projectsTitle}</CardTitle>
-            <CardDescription>
+            <CardTitle className="text-xl">{projectsTitle}</CardTitle>
+            <CardDescription className="text-sm">
               {projectsDescription}
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="space-y-6">
+            <div className="space-y-5 overflow-auto max-h-[320px] scrollbar-thin pr-2">
               {recentProjects.map((project) => (
-                <div key={project.id} className="space-y-2">
-                  <div className="flex justify-between items-center">
-                    <div>
-                      <div className="font-medium">{project.name}</div>
+                <div key={project.id} className="space-y-2 bg-background/10 p-3 rounded-lg backdrop-blur-sm">
+                  <div className="flex justify-between items-center gap-2">
+                    <div className="min-w-0">
+                      <div className="font-medium text-truncate">{project.name}</div>
                       <div className="text-xs text-muted-foreground">
                         Due: {new Date(project.dueDate).toLocaleDateString()}
                       </div>
                     </div>
-                    <Badge className={getStatusColor(project.status)}>
+                    <Badge className={getStatusColor(project.status) + " whitespace-nowrap"}>
                       {getStatusText(project.status)}
                     </Badge>
                   </div>
-                  <div className="flex items-center gap-2">
-                    <Progress value={project.progress} className="h-2" />
-                    <span className="text-xs font-medium">{project.progress}%</span>
+                  <div className="flex items-center gap-3">
+                    <Progress value={project.progress} className="h-2 flex-grow" />
+                    <span className="text-xs font-medium whitespace-nowrap">{project.progress}%</span>
                   </div>
                 </div>
               ))}
