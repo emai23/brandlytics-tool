@@ -33,7 +33,6 @@ export function ThemeProvider({
     () => (localStorage.getItem(storageKey) as Theme) || defaultTheme
   );
   const [resolvedTheme, setResolvedTheme] = useState<"dark" | "light">("light");
-  const [mounted, setMounted] = useState(false);
 
   // Handle system theme changes
   useEffect(() => {
@@ -51,31 +50,10 @@ export function ThemeProvider({
 
   // Apply theme to HTML element
   useEffect(() => {
-    if (!mounted) {
-      setMounted(true);
-    }
-    
     updateTheme();
-  }, [theme, mounted]);
-
-  // Make sure theme switch doesn't cause flash during initial load
-  useEffect(() => {
-    const root = window.document.documentElement;
-    
-    // Remove the initial-theme class which prevents transition during page load
-    if (mounted) {
-      setTimeout(() => {
-        root.classList.remove('prevent-transition');
-        root.style.colorScheme = resolvedTheme;
-      }, 0);
-    } else {
-      root.classList.add('prevent-transition');
-    }
-  }, [mounted, resolvedTheme]);
+  }, [theme]);
 
   function updateTheme() {
-    if (!mounted) return;
-    
     const root = window.document.documentElement;
     root.classList.remove("light", "dark");
 
@@ -96,6 +74,9 @@ export function ThemeProvider({
     
     // Track the resolved theme (either 'dark' or 'light')
     setResolvedTheme(currentTheme);
+    
+    // Add a brief transition delay to make theme changes smooth
+    root.style.colorScheme = currentTheme;
   }
 
   const value = {

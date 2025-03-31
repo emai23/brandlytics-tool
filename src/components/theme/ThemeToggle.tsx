@@ -10,11 +10,10 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
-import { toast } from "@/hooks/use-toast";
 
 interface ThemeToggleProps {
   className?: string;
-  variant?: "default" | "outline" | "ghost" | "glass";
+  variant?: "default" | "outline" | "ghost";
   showLabel?: boolean;
   size?: "default" | "sm" | "lg" | "icon";
 }
@@ -27,62 +26,39 @@ export function ThemeToggle({
 }: ThemeToggleProps) {
   const { theme, setTheme, resolvedTheme } = useTheme();
 
-  const handleSetTheme = (newTheme: "light" | "dark" | "system") => {
-    setTheme(newTheme);
-    
-    const themeName = newTheme === 'system' 
-      ? `system (${window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'})`
-      : newTheme;
-      
-    toast({
-      title: "Theme updated",
-      description: `Theme changed to ${themeName}`,
-      duration: 1500,
-    });
-  };
-
-  const getThemeIcon = () => {
-    if (resolvedTheme === "dark") {
-      return (
-        <Moon className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:rotate-90 dark:scale-0" />
-      );
-    }
-    return (
-      <Sun className="h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-    );
-  };
-
   return (
     <DropdownMenu>
       <Tooltip>
         <TooltipTrigger asChild>
           <DropdownMenuTrigger asChild>
             <Button 
-              variant={variant === "glass" ? "outline" : variant}
+              variant={variant} 
               size={size} 
               className={cn(
-                "focus-visible:ring-2 focus-visible:ring-ring theme-transition",
-                variant === "glass" && "glass-effect-light",
+                "focus-visible:ring-2 focus-visible:ring-ring",
                 showLabel ? "w-full justify-start px-2" : "h-9 w-9 p-0",
                 className
               )}
               aria-label="Change theme"
             >
-              <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:rotate-90 dark:scale-0" />
-              <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+              {resolvedTheme === "dark" ? (
+                <Moon className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all" />
+              ) : (
+                <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all" />
+              )}
               {showLabel && (
                 <span className="ml-2 font-medium">Theme</span>
               )}
             </Button>
           </DropdownMenuTrigger>
         </TooltipTrigger>
-        <TooltipContent side="right" align="center" className="glass-popover">
+        <TooltipContent side="right" align="center">
           <p>Change theme</p>
         </TooltipContent>
       </Tooltip>
-      <DropdownMenuContent align="end" className="w-40 glass-popover">
+      <DropdownMenuContent align="end" className="w-40">
         <DropdownMenuItem 
-          onClick={() => handleSetTheme("light")}
+          onClick={() => setTheme("light")}
           className="flex cursor-pointer items-center gap-2"
         >
           <Sun className="h-4 w-4" />
@@ -92,7 +68,7 @@ export function ThemeToggle({
           )}
         </DropdownMenuItem>
         <DropdownMenuItem 
-          onClick={() => handleSetTheme("dark")}
+          onClick={() => setTheme("dark")}
           className="flex cursor-pointer items-center gap-2"
         >
           <Moon className="h-4 w-4" />
@@ -102,7 +78,7 @@ export function ThemeToggle({
           )}
         </DropdownMenuItem>
         <DropdownMenuItem 
-          onClick={() => handleSetTheme("system")}
+          onClick={() => setTheme("system")}
           className="flex cursor-pointer items-center gap-2"
         >
           <Monitor className="h-4 w-4" />
