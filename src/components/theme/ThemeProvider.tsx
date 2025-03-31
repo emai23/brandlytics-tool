@@ -12,11 +12,13 @@ type ThemeProviderProps = {
 type ThemeProviderState = {
   theme: Theme;
   setTheme: (theme: Theme) => void;
+  resolvedTheme: "dark" | "light";
 };
 
 const initialState: ThemeProviderState = {
   theme: "system",
   setTheme: () => null,
+  resolvedTheme: "light",
 };
 
 const ThemeProviderContext = createContext<ThemeProviderState>(initialState);
@@ -30,23 +32,52 @@ export function ThemeProvider({
   const [theme, setTheme] = useState<Theme>(
     () => (localStorage.getItem(storageKey) as Theme) || defaultTheme
   );
+  const [resolvedTheme, setResolvedTheme] = useState<"dark" | "light">("light");
 
+  // Handle system theme changes
   useEffect(() => {
+    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+    
+    function onSystemThemeChange() {
+      if (theme === "system") {
+        updateTheme();
+      }
+    }
+    
+    mediaQuery.addEventListener("change", onSystemThemeChange);
+    return () => mediaQuery.removeEventListener("change", onSystemThemeChange);
+  }, [theme]);
+
+  // Apply theme to HTML element
+  useEffect(() => {
+    updateTheme();
+  }, [theme]);
+
+  function updateTheme() {
     const root = window.document.documentElement;
     root.classList.remove("light", "dark");
 
+    let currentTheme: "light" | "dark";
     if (theme === "system") {
-      const systemTheme = window.matchMedia("(prefers-color-scheme: dark)")
-        .matches
+      const systemTheme = window.matchMedia("(prefers-color-scheme: dark)").matches
         ? "dark"
         : "light";
-
       root.classList.add(systemTheme);
-      return;
+      currentTheme = systemTheme;
+    } else {
+      root.classList.add(theme);
+      currentTheme = theme as "light" | "dark";
     }
 
-    root.classList.add(theme);
-  }, [theme]);
+    // Update data-theme attribute for component libraries that use it
+    root.setAttribute("data-theme", currentTheme);
+    
+    // Track the resolved theme (either 'dark' or 'light')
+    setResolvedTheme(currentTheme);
+    
+    // Add a brief transition delay to make theme changes smooth
+    root.style.colorScheme = currentTheme;
+  }
 
   const value = {
     theme,
@@ -54,6 +85,7 @@ export function ThemeProvider({
       localStorage.setItem(storageKey, theme);
       setTheme(theme);
     },
+    resolvedTheme,
   };
 
   return (
