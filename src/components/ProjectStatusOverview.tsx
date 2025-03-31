@@ -1,18 +1,43 @@
+
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { MotionContainer } from "./MotionContainer";
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from "recharts";
 
-// Sample data - replace with your actual data
-const projectStatusData = [
+export interface ProjectStatusOverviewProps {
+  statusData?: Array<{
+    name: string;
+    value: number;
+    color: string;
+  }>;
+  recentProjects?: Array<{
+    id: number | string;
+    name: string;
+    status: string;
+    progress: number;
+    dueDate: string;
+  }>;
+  chartTitle?: string;
+  chartDescription?: string;
+  projectsTitle?: string;
+  projectsDescription?: string;
+  delay?: {
+    chart: number;
+    projects: number;
+  };
+  animation?: string;
+}
+
+// Default data
+const defaultStatusData = [
   { name: "Not Started", value: 2, color: "#94a3b8" },
   { name: "In Progress", value: 7, color: "#3b82f6" },
   { name: "Completed", value: 12, color: "#22c55e" },
   { name: "On Hold", value: 1, color: "#f59e0b" },
 ];
 
-const recentProjects = [
+const defaultRecentProjects = [
   {
     id: 1,
     name: "Health Tech Startup",
@@ -43,7 +68,16 @@ const recentProjects = [
   },
 ];
 
-export const ProjectStatusOverview = () => {
+export const ProjectStatusOverview = ({
+  statusData = defaultStatusData,
+  recentProjects = defaultRecentProjects,
+  chartTitle = "Project Status Distribution",
+  chartDescription = "Overview of all projects by current status",
+  projectsTitle = "Recent Projects",
+  projectsDescription = "Status and progress of your latest projects",
+  delay = { chart: 400, projects: 500 },
+  animation = "slide-up"
+}: ProjectStatusOverviewProps) => {
   const getStatusColor = (status: string) => {
     switch (status) {
       case "completed":
@@ -67,12 +101,12 @@ export const ProjectStatusOverview = () => {
 
   return (
     <div className="grid gap-6 grid-cols-1 md:grid-cols-2 mt-8">
-      <MotionContainer delay={400} animation="slide-up">
+      <MotionContainer delay={delay.chart} animation={animation}>
         <Card>
           <CardHeader>
-            <CardTitle>Project Status Distribution</CardTitle>
+            <CardTitle>{chartTitle}</CardTitle>
             <CardDescription>
-              Overview of all projects by current status
+              {chartDescription}
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -80,7 +114,7 @@ export const ProjectStatusOverview = () => {
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
                   <Pie
-                    data={projectStatusData}
+                    data={statusData}
                     cx="50%"
                     cy="50%"
                     innerRadius={60}
@@ -90,7 +124,7 @@ export const ProjectStatusOverview = () => {
                     label={({ name, percent }) => `${name} (${(percent * 100).toFixed(0)}%)`}
                     labelLine={false}
                   >
-                    {projectStatusData.map((entry, index) => (
+                    {statusData.map((entry, index) => (
                       <Cell key={`cell-${index}`} fill={entry.color} />
                     ))}
                   </Pie>
@@ -106,7 +140,7 @@ export const ProjectStatusOverview = () => {
               </ResponsiveContainer>
             </div>
             <div className="grid grid-cols-2 gap-4 mt-4">
-              {projectStatusData.map((status) => (
+              {statusData.map((status) => (
                 <div key={status.name} className="flex items-center">
                   <div 
                     className="w-3 h-3 rounded-full mr-2" 
@@ -120,12 +154,12 @@ export const ProjectStatusOverview = () => {
         </Card>
       </MotionContainer>
 
-      <MotionContainer delay={500} animation="slide-up">
+      <MotionContainer delay={delay.projects} animation={animation}>
         <Card>
           <CardHeader>
-            <CardTitle>Recent Projects</CardTitle>
+            <CardTitle>{projectsTitle}</CardTitle>
             <CardDescription>
-              Status and progress of your latest projects
+              {projectsDescription}
             </CardDescription>
           </CardHeader>
           <CardContent>

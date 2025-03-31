@@ -1,33 +1,61 @@
+
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { MotionContainer } from "./MotionContainer";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
 import { CalendarIcon } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
-// Sample data - replace with your actual data
-const timelineData = [
+export interface ProjectTimelineProps {
+  timelineData?: Array<{
+    name: string;
+    start: number;
+    duration: number;
+    phase: string;
+  }>;
+  milestoneData?: Array<{
+    date: string;
+    project: string;
+    event: string;
+  }>;
+  title?: string;
+  description?: string;
+  milestonesTitle?: string;
+  milestonesDescription?: string;
+  delay?: number;
+}
+
+// Default data
+const defaultTimelineData = [
   { name: "Health Tech App", start: 0, duration: 14, phase: "Brand Development" },
   { name: "Eco Fashion", start: 7, duration: 21, phase: "Market Research" },
   { name: "Food Delivery", start: 14, duration: 28, phase: "Content Strategy" },
   { name: "Fitness Rebrand", start: 21, duration: 14, phase: "Target Audience" },
 ];
 
-const milestoneData = [
+const defaultMilestoneData = [
   { date: "2025-04-01", project: "Health Tech App", event: "Brand Guidelines Delivery" },
   { date: "2025-04-10", project: "Eco Fashion", event: "Market Research Report" },
   { date: "2025-04-15", project: "Food Delivery", event: "Content Calendar Approval" },
   { date: "2025-04-22", project: "Fitness Rebrand", event: "Target Audience Presentation" },
 ];
 
-export const ProjectTimeline = () => {
+export const ProjectTimeline = ({
+  timelineData = defaultTimelineData,
+  milestoneData = defaultMilestoneData,
+  title = "Project Timeline",
+  description = "Gantt chart of current projects (in days)",
+  milestonesTitle = "Upcoming Milestones",
+  milestonesDescription = "Important project deadlines and events",
+  delay = 400
+}: ProjectTimelineProps) => {
   return (
     <div className="grid gap-6 grid-cols-1 md:grid-cols-2 mb-8">
-      <MotionContainer delay={400}>
+      <MotionContainer delay={delay}>
         <Card>
           <CardHeader>
-            <CardTitle>Project Timeline</CardTitle>
+            <CardTitle>{title}</CardTitle>
             <CardDescription>
-              Gantt chart of current projects (in days)
+              {description}
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -58,12 +86,12 @@ export const ProjectTimeline = () => {
         </Card>
       </MotionContainer>
 
-      <MotionContainer delay={450}>
+      <MotionContainer delay={delay + 50}>
         <Card>
           <CardHeader>
-            <CardTitle>Upcoming Milestones</CardTitle>
+            <CardTitle>{milestonesTitle}</CardTitle>
             <CardDescription>
-              Important project deadlines and events
+              {milestonesDescription}
             </CardDescription>
           </CardHeader>
           <CardContent>
