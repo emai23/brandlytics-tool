@@ -3,7 +3,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import React, { StrictMode, Suspense } from "react"; 
+import React, { StrictMode, Suspense, useEffect } from "react"; 
 import ErrorBoundary from "@/components/ErrorBoundary";
 import Loading from "@/components/Loading";
 import { AppSidebar } from "@/components/navigation/AppSidebar";
@@ -38,16 +38,43 @@ const CustomFallback = () => (
   </div>
 );
 
+// Component to add initial dark mode before hydration to prevent flash
+const InitialTheme = () => {
+  useEffect(() => {
+    // Add class to prevent transitions during page load
+    document.documentElement.classList.add('prevent-transition');
+    
+    // Check localStorage and system preference
+    const storedTheme = localStorage.getItem('ui-theme');
+    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    
+    // Apply the appropriate theme class
+    if (storedTheme === 'dark' || (storedTheme !== 'light' && systemPrefersDark)) {
+      document.documentElement.classList.add('dark');
+    }
+    
+    // Remove the prevention class after a small delay
+    const timer = setTimeout(() => {
+      document.documentElement.classList.remove('prevent-transition');
+    }, 300);
+    
+    return () => clearTimeout(timer);
+  }, []);
+  
+  return null;
+};
+
 const App = () => (
   <StrictMode>
     <QueryClientProvider client={queryClient}>
       <ThemeProvider defaultTheme="system" storageKey="market-research-theme">
+        <InitialTheme />
         <TooltipProvider>
           <Toaster />
           <Router>
-            <div className="flex min-h-screen">
+            <div className="flex min-h-screen theme-transition">
               <AppSidebar />
-              <main className="flex-1 overflow-auto">
+              <main className="flex-1 overflow-auto theme-transition">
                 <ErrorBoundary fallback={<CustomFallback />}>
                   <Suspense fallback={<Loading />}>
                     <div className="container py-6 md:py-8 px-4">

@@ -2,6 +2,7 @@
 import React from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { MotionContainer } from './MotionContainer';
+import { useTheme } from '@/components/theme/ThemeProvider';
 
 export interface MetricsCardProps {
   title: string;
@@ -13,12 +14,23 @@ export interface MetricsCardProps {
     value: number;
     type: 'increase' | 'decrease' | 'neutral';
   };
+  variant?: 'default' | 'glass' | 'glassDark' | 'glassLight';
 }
 
-const MetricsCard = ({ title, value, description, icon, change, isLoading }: MetricsCardProps) => {
+const MetricsCard = ({ 
+  title, 
+  value, 
+  description, 
+  icon, 
+  change, 
+  isLoading, 
+  variant = 'glass' 
+}: MetricsCardProps) => {
+  const { resolvedTheme } = useTheme();
+
   if (isLoading) {
     return (
-      <Card>
+      <Card variant={variant}>
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
           <CardTitle className="text-sm font-medium">Loading...</CardTitle>
           <div className="h-4 w-4 rounded-full bg-muted"></div>
@@ -33,7 +45,7 @@ const MetricsCard = ({ title, value, description, icon, change, isLoading }: Met
 
   return (
     <MotionContainer>
-      <Card>
+      <Card variant={variant} className="theme-transition">
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
           <CardTitle className="text-sm font-medium">{title}</CardTitle>
           <div className="h-4 w-4 text-muted-foreground">{icon}</div>
@@ -43,8 +55,8 @@ const MetricsCard = ({ title, value, description, icon, change, isLoading }: Met
           <p className="text-xs text-muted-foreground">{description}</p>
           {change && (
             <div className={`flex items-center mt-2 text-xs ${
-              change.type === 'increase' ? 'text-green-500' : 
-              change.type === 'decrease' ? 'text-red-500' : 
+              change.type === 'increase' ? 'text-green-500 dark:text-green-400' : 
+              change.type === 'decrease' ? 'text-red-500 dark:text-red-400' : 
               'text-muted-foreground'
             }`}>
               {change.type === 'increase' ? (

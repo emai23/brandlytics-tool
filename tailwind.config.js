@@ -111,6 +111,14 @@ export default {
           accent: "hsl(var(--sidebar-accent))",
           border: "hsl(var(--sidebar-border))",
         },
+        
+        // Glassmorphism colors
+        glass: {
+          background: "var(--glass-background)",
+          border: "var(--glass-border)",
+          highlight: "var(--glass-highlight)",
+          shadow: "var(--glass-shadow)",
+        },
       },
       fontFamily: {
         sans: [
@@ -241,6 +249,9 @@ export default {
           from: { transform: "translateY(0)", opacity: 1 },
           to: { transform: "translateY(10px)", opacity: 0 },
         },
+        "shimmer": {
+          "100%": { transform: "translateX(100%)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -253,6 +264,10 @@ export default {
         "scale-out": "scale-out 0.2s ease-out",
         "slide-in": "slide-in 0.2s ease-out",
         "slide-out": "slide-out 0.2s ease-out",
+        "shimmer": "shimmer 2s infinite",
+      },
+      backdropBlur: {
+        xs: '2px',
       },
     },
   },

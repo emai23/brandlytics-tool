@@ -70,6 +70,22 @@ export const designSystem = {
       DEFAULT: '199 89% 48%',
       foreground: '0 0% 98%',
     },
+    
+    // Glassmorphism
+    glassmorphism: {
+      light: {
+        background: 'rgba(255, 255, 255, 0.7)',
+        border: 'rgba(255, 255, 255, 0.5)',
+        highlight: 'rgba(255, 255, 255, 0.9)',
+        shadow: 'rgba(0, 0, 0, 0.05)',
+      },
+      dark: {
+        background: 'rgba(18, 24, 38, 0.7)',
+        border: 'rgba(26, 32, 44, 0.5)',
+        highlight: 'rgba(30, 41, 59, 0.4)',
+        shadow: 'rgba(0, 0, 0, 0.2)',
+      },
+    },
   },
   
   // Typography Scale
@@ -234,6 +250,12 @@ export const cssCustomProperties = {
     '--secondary': '215 16% 47%',
     '--secondary-foreground': '210 40% 98%',
     
+    // Glassmorphism
+    '--glass-background': 'rgba(255, 255, 255, 0.7)',
+    '--glass-border': 'rgba(255, 255, 255, 0.5)',
+    '--glass-highlight': 'rgba(255, 255, 255, 0.9)',
+    '--glass-shadow': 'rgba(0, 0, 0, 0.05)',
+    
     // ... other tokens documented in index.css
   },
   
@@ -249,6 +271,12 @@ export const cssCustomProperties = {
     // Secondary
     '--secondary': '217 32% 17%',
     '--secondary-foreground': '210 40% 98%',
+    
+    // Glassmorphism
+    '--glass-background': 'rgba(18, 24, 38, 0.7)',
+    '--glass-border': 'rgba(26, 32, 44, 0.5)',
+    '--glass-highlight': 'rgba(30, 41, 59, 0.4)',
+    '--glass-shadow': 'rgba(0, 0, 0, 0.2)',
     
     // ... other tokens documented in index.css
   },
@@ -285,6 +313,9 @@ export const componentVariants = {
   card: {
     variants: [
       'default',
+      'glass',
+      'glassDark',
+      'glassLight',
       'interactive',
       'bordered',
       'gradient',
@@ -296,6 +327,21 @@ export const componentVariants = {
       'secondary',
       'destructive',
       'outline',
+    ],
+  },
+  dialog: {
+    variants: [
+      'default',
+      'glass',
+    ],
+  },
+  alert: {
+    variants: [
+      'default',
+      'destructive',
+      'warning',
+      'success',
+      'info',
     ],
   },
   // ... document other component variants
