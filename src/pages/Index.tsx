@@ -1,22 +1,13 @@
-import { Navbar } from "@/components/Navbar";
-import { Dashboard } from "@/components/Dashboard";
-import { ProjectStatusChart } from "@/components/ProjectStatusChart";
-import { ProjectTimeline } from "@/components/ProjectTimeline";
-import { ResourceAllocation } from "@/components/ResourceAllocation";
-import { RecentActivity } from "@/components/RecentActivity";
+
+import { DashboardMainContainer } from "@/components/dashboard";
 import { MotionContainer } from "@/components/MotionContainer";
 
 const Index = () => {
   return (
     <div className="min-h-screen flex flex-col">
-      <Navbar />
       <main className="flex-1">
         <div className="container px-4 md:px-6">
-          <Dashboard />
-          <ProjectStatusChart />
-          <ProjectTimeline />
-          <ResourceAllocation />
-          <RecentActivity />
+          <DashboardMainContainer />
         </div>
       </main>
       <footer className="border-t py-6">
