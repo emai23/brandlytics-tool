@@ -44,9 +44,9 @@ export const ProjectStatusChart = ({
   animation = "fade-in"
 }: ProjectStatusChartProps) => {
   return (
-    <div className="grid gap-6 grid-cols-1 md:grid-cols-2 mb-8">
+    <div className="grid gap-6 grid-cols-1 md:grid-cols-2">
       <MotionContainer delay={delay} animation={animation}>
-        <Card className="glass-effect h-full overflow-hidden">
+        <Card className="h-full backdrop-blur-sm bg-card/80 border border-border/50 shadow-md">
           <CardHeader className="overflow-hidden">
             <CardTitle className="text-xl truncate">{title}</CardTitle>
             <CardDescription className="text-sm line-clamp-2">
@@ -54,7 +54,7 @@ export const ProjectStatusChart = ({
             </CardDescription>
           </CardHeader>
           <CardContent className="p-4 overflow-hidden">
-            <div className="h-[250px] chart-container overflow-hidden">
+            <div className="h-[250px] w-full">
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
                   <Pie
@@ -103,7 +103,7 @@ export const ProjectStatusChart = ({
       </MotionContainer>
 
       <MotionContainer delay={delay + 50} animation={animation}>
-        <Card className="glass-effect h-full overflow-hidden">
+        <Card className="h-full backdrop-blur-sm bg-card/80 border border-border/50 shadow-md">
           <CardHeader className="overflow-hidden">
             <CardTitle className="text-xl truncate">Overall Completion Progress</CardTitle>
             <CardDescription className="text-sm line-clamp-2">

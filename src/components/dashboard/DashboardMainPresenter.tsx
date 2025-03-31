@@ -1,3 +1,4 @@
+
 import { useNavigate } from "react-router-dom";
 import { DashboardContainerData } from "@/types/dashboard";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -10,7 +11,7 @@ import { ProjectStatusChart } from "@/components/ProjectStatusChart";
 import { ProjectTimeline } from "@/components/ProjectTimeline";
 import { ResourceAllocation } from "@/components/ResourceAllocation";
 import { RecentActivity } from "@/components/RecentActivity";
-import { Package, BarChart2, Clock, CheckCircle } from "lucide-react";
+import { Package, BarChart2, Clock, CheckCircle, ArrowRight, FileEdit } from "lucide-react";
 import { AreaChart, Bar, CartesianGrid, ResponsiveContainer, XAxis, YAxis, Tooltip, Area, BarChart as RechartsBarChart } from "recharts";
 
 export interface DashboardHeaderProps {
@@ -29,9 +30,10 @@ interface ProjectsListProps {
   projects: DashboardContainerData["projects"];
   isLoading: boolean;
   onViewProject: (id: string) => void;
+  onContinueWork: (id: string) => void;
 }
 
-const ProjectsList = ({ projects, isLoading, onViewProject }: ProjectsListProps) => {
+const ProjectsList = ({ projects, isLoading, onViewProject, onContinueWork }: ProjectsListProps) => {
   if (isLoading) {
     return <div className="p-8 text-center">Loading projects...</div>;
   }
@@ -41,13 +43,12 @@ const ProjectsList = ({ projects, isLoading, onViewProject }: ProjectsListProps)
       {projects.map((project) => (
         <Card
           key={project.id}
-          className="hover:shadow-md transition-shadow cursor-pointer"
-          onClick={() => onViewProject(project.id)}
+          className="hover:shadow-md transition-shadow overflow-hidden backdrop-blur-sm bg-card/80 border border-border/50"
         >
           <CardContent className="p-4">
-            <div className="space-y-2">
+            <div className="space-y-4">
               <div className="flex justify-between items-center">
-                <h4 className="font-medium">{project.name}</h4>
+                <h4 className="font-medium truncate max-w-[70%]">{project.name}</h4>
                 <Badge variant={project.status === "completed" ? "default" : "secondary"}>
                   {project.status.replace('_', ' ').replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase())}
                 </Badge>
@@ -57,6 +58,24 @@ const ProjectsList = ({ projects, isLoading, onViewProject }: ProjectsListProps)
                 <span>{project.completion}%</span>
               </div>
               <Progress value={project.completion} className="h-2" />
+              <div className="flex justify-between gap-2 pt-2">
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  className="flex-1" 
+                  onClick={() => onViewProject(project.id)}
+                >
+                  <FileEdit className="w-4 h-4 mr-1" /> Details
+                </Button>
+                <Button 
+                  variant="default" 
+                  size="sm" 
+                  className="flex-1" 
+                  onClick={() => onContinueWork(project.id)}
+                >
+                  Continue <ArrowRight className="w-4 h-4 ml-1" />
+                </Button>
+              </div>
             </div>
           </CardContent>
         </Card>
@@ -160,6 +179,10 @@ const DashboardMainPresenter = (props: DashboardContainerData) => {
     navigate(`/projects/${projectId}`);
   };
 
+  const handleContinueWork = (projectId: string) => {
+    navigate(`/projects/${projectId}/workflow`);
+  };
+
   if (error) {
     return (
       <div className="container py-8">
@@ -223,37 +246,44 @@ const DashboardMainPresenter = (props: DashboardContainerData) => {
         />
       </div>
 
-      {/* Project Status Overview - Moved to its own row and full width */}
+      {/* Project Status Overview */}
       <MotionContainer delay={300} animation="slide-up">
-        <Card className="mb-8">
+        <Card className="mb-8 overflow-hidden backdrop-blur-sm bg-card/80 border border-border/50 shadow-md">
           <CardHeader className="pb-2">
             <CardTitle>Project Status Overview</CardTitle>
             <CardDescription>
               Distribution of projects by current status
             </CardDescription>
           </CardHeader>
-          <CardContent>
-            <div className="h-[300px]">
-              <ProjectStatusChart />
+          <CardContent className="p-4">
+            <div className="h-[300px] overflow-hidden">
+              <ProjectStatusChart 
+                statusData={projectStatus} 
+                completionData={projectCompletion}
+                isLoading={isLoading}
+              />
             </div>
           </CardContent>
         </Card>
       </MotionContainer>
       
-      {/* Recent Projects - Moved to its own row and full width */}
+      {/* Recent Projects */}
       <MotionContainer delay={350} animation="slide-up">
-        <Card className="mb-8">
+        <Card className="mb-8 overflow-hidden backdrop-blur-sm bg-card/80 border border-border/50 shadow-md">
           <CardHeader className="pb-3">
             <div className="flex justify-between items-center">
               <CardTitle>Recent Projects</CardTitle>
-              <Button variant="ghost" size="sm" onClick={() => navigate('/projects')}>View All</Button>
+              <Button variant="ghost" size="sm" onClick={() => navigate('/projects')}>
+                View All <ArrowRight className="ml-1 h-4 w-4" />
+              </Button>
             </div>
           </CardHeader>
           <CardContent>
             <ProjectsList 
               projects={projects} 
               isLoading={isLoading}
-              onViewProject={handleViewProject} 
+              onViewProject={handleViewProject}
+              onContinueWork={handleContinueWork}
             />
           </CardContent>
         </Card>
@@ -261,7 +291,7 @@ const DashboardMainPresenter = (props: DashboardContainerData) => {
 
       {/* Project Timeline Visualization */}
       <MotionContainer delay={400} animation="slide-up">
-        <Card className="mb-8">
+        <Card className="mb-8 overflow-hidden backdrop-blur-sm bg-card/80 border border-border/50 shadow-md">
           <CardHeader>
             <CardTitle>Project Timeline</CardTitle>
             <CardDescription>
@@ -269,8 +299,10 @@ const DashboardMainPresenter = (props: DashboardContainerData) => {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="h-[350px]">
-              <ProjectTimeline />
+            <div className="h-[350px] overflow-hidden">
+              <ProjectTimeline 
+                milestoneData={milestones}
+              />
             </div>
           </CardContent>
         </Card>
@@ -280,7 +312,7 @@ const DashboardMainPresenter = (props: DashboardContainerData) => {
       <div className="grid gap-6 grid-cols-1 md:grid-cols-2 mb-8">
         {/* Project Creation and Completion Trends */}
         <MotionContainer delay={450} animation="slide-up">
-          <Card>
+          <Card className="overflow-hidden backdrop-blur-sm bg-card/80 border border-border/50 shadow-md">
             <CardHeader>
               <CardTitle>Project Trends</CardTitle>
               <CardDescription>
@@ -295,7 +327,7 @@ const DashboardMainPresenter = (props: DashboardContainerData) => {
 
         {/* Marketing Channel Effectiveness */}
         <MotionContainer delay={500} animation="slide-up">
-          <Card>
+          <Card className="overflow-hidden backdrop-blur-sm bg-card/80 border border-border/50 shadow-md">
             <CardHeader>
               <CardTitle>Marketing Channel Effectiveness</CardTitle>
               <CardDescription>
@@ -311,7 +343,7 @@ const DashboardMainPresenter = (props: DashboardContainerData) => {
 
       {/* Resource Allocation Section */}
       <MotionContainer delay={550} animation="slide-up">
-        <Card className="mb-8">
+        <Card className="mb-8 overflow-hidden backdrop-blur-sm bg-card/80 border border-border/50 shadow-md">
           <CardHeader>
             <CardTitle>Resource Allocation</CardTitle>
             <CardDescription>
@@ -319,7 +351,7 @@ const DashboardMainPresenter = (props: DashboardContainerData) => {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="h-[350px]">
+            <div className="h-[350px] overflow-hidden">
               <ResourceAllocation />
             </div>
           </CardContent>
@@ -328,7 +360,7 @@ const DashboardMainPresenter = (props: DashboardContainerData) => {
 
       {/* Recent Activity Feed */}
       <MotionContainer delay={600} animation="slide-up">
-        <Card>
+        <Card className="overflow-hidden backdrop-blur-sm bg-card/80 border border-border/50 shadow-md">
           <CardHeader>
             <CardTitle>Recent Activity</CardTitle>
             <CardDescription>
@@ -336,7 +368,7 @@ const DashboardMainPresenter = (props: DashboardContainerData) => {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="h-[350px] overflow-auto">
+            <div className="h-[350px] overflow-auto pr-2 scrollbar-thin">
               <RecentActivity />
             </div>
           </CardContent>
