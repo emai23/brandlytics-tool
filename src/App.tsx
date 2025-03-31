@@ -1,11 +1,12 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Navbar } from "@/components/Navbar";
-import React, { StrictMode, Suspense } from "react"; // Added Suspense for lazy loading
-import ErrorBoundary from "@/components/ErrorBoundary"; // 
-import Loading from "@/components/Loading"; // Create a Loading component for fallback
+import React, { StrictMode, Suspense } from "react"; 
+import ErrorBoundary from "@/components/ErrorBoundary";
+import Loading from "@/components/Loading";
 
 // Lazy-loaded pages
 const Index = React.lazy(() => import("./pages/Index"));
@@ -15,6 +16,9 @@ const NotFound = React.lazy(() => import("./pages/NotFound"));
 const Account = React.lazy(() => import("./pages/Account"));
 const Login = React.lazy(() => import("./pages/Login"));
 const Register = React.lazy(() => import("./pages/Register"));
+
+// Import dashboard containers directly since they're lightweight
+import { DashboardMainContainer, DashboardProjectContainer } from "@/components/dashboard";
 
 const queryClient = new QueryClient();
 
@@ -44,11 +48,13 @@ const App = () => (
                 <Suspense fallback={<Loading />}>
                   <Routes>
                     <Route path="/" element={<Index />} />
+                    <Route path="/dashboard" element={<DashboardMainContainer />} />
                     <Route path="/create-project" element={<ProjectCreation />} />
                     <Route path="/account" element={<Account />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />
                     <Route path="/projects/:id" element={<ProjectDetail />} />
+                    <Route path="/projects/:id/dashboard" element={<DashboardProjectContainer />} />
                     {/* Add all custom routes above the catch-all "*" route */}
                     <Route path="*" element={<NotFound />} />
                   </Routes>

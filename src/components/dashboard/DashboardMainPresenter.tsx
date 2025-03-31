@@ -1,4 +1,3 @@
-
 import { useNavigate } from "react-router-dom";
 import { DashboardContainerData } from "@/types/dashboard";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -6,7 +5,7 @@ import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { MotionContainer } from "@/components/MotionContainer";
-import { MetricsCard } from "@/components/MetricsCard";
+import MetricsCard from "@/components/MetricsCard";
 import { ProjectStatusChart } from "@/components/ProjectStatusChart";
 import { ProjectTimeline } from "@/components/ProjectTimeline";
 import { ResourceAllocation } from "@/components/ResourceAllocation";

@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { BarChart, LineChart, PieChart, TrendingUp, Users, Calendar, FileText, CheckCircle, Clock, Package, BarChart2 } from "lucide-react";
-import { MetricsCard } from "./MetricsCard";
+import MetricsCard from "./MetricsCard";
 import { MotionContainer } from "./MotionContainer";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { AreaChart, Bar, CartesianGrid, ResponsiveContainer, XAxis, YAxis, Tooltip, Area, BarChart as RechartsBarChart } from "recharts";
@@ -224,12 +224,6 @@ export const Dashboard = () => {
         {/* Marketing Channel Effectiveness */}
         <MotionContainer delay={400} animation="slide-up">
           <Card>
-            <CardHeader>
-              <CardTitle>Marketing Channel Effectiveness</CardTitle>
-              <CardDescription>
-                Distribution of engagement across marketing channels
-              </CardDescription>
-            </CardHeader>
             <CardHeader>
               <CardTitle>Marketing Channel Effectiveness</CardTitle>
               <CardDescription>
