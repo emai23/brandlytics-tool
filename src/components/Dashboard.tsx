@@ -118,7 +118,7 @@ export const Dashboard = () => {
           <CardHeader className="pb-3">
             <div className="flex justify-between items-center">
               <CardTitle>Recent Projects</CardTitle>
-              <Button variant="ghost" size="sm" onClick={() => navigate('/create-project')}>View All</Button>
+              <Button variant="ghost" size="sm" onClick={() => navigate('/projects')}>View All</Button>
             </div>
           </CardHeader>
           <CardContent>
