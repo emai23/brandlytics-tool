@@ -103,14 +103,14 @@ export const ProjectStatusOverview = ({
     <div className="grid gap-6 grid-cols-1 md:grid-cols-2 mt-8">
       <MotionContainer delay={delay.chart} animation={animation}>
         <Card className="glass-effect h-full overflow-hidden">
-          <CardHeader>
-            <CardTitle className="text-xl">{chartTitle}</CardTitle>
-            <CardDescription className="text-sm">
+          <CardHeader className="overflow-hidden">
+            <CardTitle className="text-xl truncate">{chartTitle}</CardTitle>
+            <CardDescription className="text-sm line-clamp-2">
               {chartDescription}
             </CardDescription>
           </CardHeader>
-          <CardContent className="p-4">
-            <div className="h-[260px] chart-container">
+          <CardContent className="p-4 overflow-hidden">
+            <div className="h-[260px] chart-container overflow-hidden">
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
                   <Pie
@@ -121,7 +121,7 @@ export const ProjectStatusOverview = ({
                     outerRadius={80}
                     paddingAngle={2}
                     dataKey="value"
-                    label={({ name, percent }) => `${name} (${(percent * 100).toFixed(0)}%)`}
+                    label={({ name, percent }) => `${name.length > 10 ? name.slice(0, 10) + '...' : name} (${(percent * 100).toFixed(0)}%)`}
                     labelLine={{ stroke: 'rgba(255,255,255,0.3)', strokeWidth: 1 }}
                   >
                     {statusData.map((entry, index) => (
@@ -141,14 +141,14 @@ export const ProjectStatusOverview = ({
                 </PieChart>
               </ResponsiveContainer>
             </div>
-            <div className="grid grid-cols-2 gap-4 mt-4">
+            <div className="grid grid-cols-2 gap-4 mt-4 overflow-hidden">
               {statusData.map((status) => (
-                <div key={status.name} className="flex items-center">
+                <div key={status.name} className="flex items-center overflow-hidden">
                   <div 
-                    className="w-3 h-3 rounded-full mr-2" 
+                    className="w-3 h-3 rounded-full mr-2 flex-shrink-0" 
                     style={{ backgroundColor: status.color }}
                   />
-                  <span className="text-sm text-truncate">{status.name}: {status.value}</span>
+                  <span className="text-sm truncate">{status.name}: {status.value}</span>
                 </div>
               ))}
             </div>
@@ -158,30 +158,30 @@ export const ProjectStatusOverview = ({
 
       <MotionContainer delay={delay.projects} animation={animation}>
         <Card className="glass-effect h-full overflow-hidden">
-          <CardHeader>
-            <CardTitle className="text-xl">{projectsTitle}</CardTitle>
-            <CardDescription className="text-sm">
+          <CardHeader className="overflow-hidden">
+            <CardTitle className="text-xl truncate">{projectsTitle}</CardTitle>
+            <CardDescription className="text-sm line-clamp-2">
               {projectsDescription}
             </CardDescription>
           </CardHeader>
-          <CardContent>
-            <div className="space-y-5 overflow-auto max-h-[320px] scrollbar-thin pr-2">
+          <CardContent className="overflow-hidden">
+            <div className="space-y-5 overflow-y-auto max-h-[320px] scrollbar-thin pr-2">
               {recentProjects.map((project) => (
                 <div key={project.id} className="space-y-2 bg-background/10 p-3 rounded-lg backdrop-blur-sm">
                   <div className="flex justify-between items-center gap-2">
-                    <div className="min-w-0">
-                      <div className="font-medium text-truncate">{project.name}</div>
+                    <div className="min-w-0 flex-1">
+                      <div className="font-medium truncate">{project.name}</div>
                       <div className="text-xs text-muted-foreground">
                         Due: {new Date(project.dueDate).toLocaleDateString()}
                       </div>
                     </div>
-                    <Badge className={getStatusColor(project.status) + " whitespace-nowrap"}>
+                    <Badge className={getStatusColor(project.status) + " whitespace-nowrap flex-shrink-0"}>
                       {getStatusText(project.status)}
                     </Badge>
                   </div>
                   <div className="flex items-center gap-3">
                     <Progress value={project.progress} className="h-2 flex-grow" />
-                    <span className="text-xs font-medium whitespace-nowrap">{project.progress}%</span>
+                    <span className="text-xs font-medium whitespace-nowrap flex-shrink-0">{project.progress}%</span>
                   </div>
                 </div>
               ))}

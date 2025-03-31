@@ -139,13 +139,13 @@ const ProjectsList = () => {
           {filteredProjects.length > 0 ? (
             filteredProjects.map((project) => (
               <Card key={project.id} className="overflow-hidden hover:shadow-md transition-shadow cursor-pointer">
-                <CardHeader className="pb-2">
+                <CardHeader className="pb-2 overflow-hidden">
                   <div className="flex items-start justify-between">
-                    <div className="space-y-1">
-                      <CardTitle className="text-xl">{project.name}</CardTitle>
-                      <CardDescription>{project.niche}</CardDescription>
+                    <div className="space-y-1 overflow-hidden min-w-0 flex-1">
+                      <CardTitle className="text-xl truncate">{project.name}</CardTitle>
+                      <CardDescription className="truncate">{project.niche}</CardDescription>
                     </div>
-                    <Button variant="ghost" size="icon" className="rounded-full">
+                    <Button variant="ghost" size="icon" className="rounded-full flex-shrink-0">
                       {project.isFavorite ? (
                         <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
                       ) : (
@@ -166,7 +166,7 @@ const ProjectsList = () => {
                       <span>Progress</span>
                       <span>{project.progress}%</span>
                     </div>
-                    <div className="w-full bg-gray-200 rounded-full h-2">
+                    <div className="w-full bg-gray-200 rounded-full h-2 overflow-hidden">
                       <div
                         className="bg-primary h-2 rounded-full"
                         style={{ width: `${project.progress}%` }}
@@ -174,13 +174,13 @@ const ProjectsList = () => {
                     </div>
                   </div>
                 </CardContent>
-                <CardFooter>
+                <CardFooter className="overflow-hidden">
                   <Button 
                     variant="ghost" 
-                    className="w-full justify-between"
+                    className="w-full justify-between truncate"
                     onClick={() => navigate(`/projects/${project.id}/dashboard`)}
                   >
-                    View Details <ChevronRight className="h-4 w-4" />
+                    <span className="truncate">View Details</span> <ChevronRight className="h-4 w-4 flex-shrink-0" />
                   </Button>
                 </CardFooter>
               </Card>
