@@ -1,6 +1,5 @@
 
 import { MotionContainer } from "@/components/MotionContainer";
-import { Navbar } from "@/components/Navbar";
 import { ProjectWorkflow } from "@/components/projectworkflow/ProjectWorkflow";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -62,7 +61,6 @@ const ProjectCreation = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <Navbar />
       <main className="flex-1">
         <div className="container px-4 md:px-6 py-8">
           <MotionContainer delay={100}>

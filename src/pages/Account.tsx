@@ -1,5 +1,4 @@
 
-import { Navbar } from "@/components/Navbar";
 import { MotionContainer } from "@/components/MotionContainer";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
@@ -9,7 +8,6 @@ import { User, Settings, Shield, Bell } from "lucide-react";
 const Account = () => {
   return (
     <div className="min-h-screen flex flex-col">
-      <Navbar />
       <main className="flex-1">
         <div className="container px-4 md:px-6 py-8">
           <MotionContainer delay={100}>
