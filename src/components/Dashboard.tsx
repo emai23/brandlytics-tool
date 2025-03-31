@@ -111,60 +111,57 @@ export const Dashboard = () => {
         />
       </div>
 
-      {/* Projects Overview & Status */}
-      <div className="grid gap-6 md:grid-cols-3 mb-8">
-        {/* Projects List */}
-        <Card className="md:col-span-1">
-          <CardHeader className="pb-3">
-            <div className="flex justify-between items-center">
-              <CardTitle>Recent Projects</CardTitle>
-              <Button variant="ghost" size="sm" onClick={() => navigate('/projects')}>View All</Button>
-            </div>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              {mockProjects.map((project) => (
-                <Card
-                  key={project.id}
-                  className="hover:shadow-md transition-shadow cursor-pointer"
-                  onClick={() => handleViewProject(project.id)}
-                >
-                  <CardContent className="p-4">
-                    <div className="space-y-2">
-                      <div className="flex justify-between items-center">
-                        <h4 className="font-medium">{project.name}</h4>
-                        <Badge variant={project.status === "Completed" ? "default" : "secondary"}>
-                          {project.status}
-                        </Badge>
-                      </div>
-                      <div className="flex justify-between text-xs text-muted-foreground">
-                        <span>Completion</span>
-                        <span>{project.completion}%</span>
-                      </div>
-                      <Progress value={project.completion} className="h-2" />
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
+      {/* Project Status Overview - Moved to its own row and full width */}
+      <Card className="mb-8">
+        <CardHeader className="pb-2">
+          <CardTitle>Project Status Overview</CardTitle>
+          <CardDescription>
+            Distribution of projects by current status
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="h-[300px]">
+            <ProjectStatusChart />
+          </div>
+        </CardContent>
+      </Card>
 
-        {/* Project Status Overview - Donut Chart */}
-        <Card className="md:col-span-2">
-          <CardHeader className="pb-2">
-            <CardTitle>Project Status Overview</CardTitle>
-            <CardDescription>
-              Distribution of projects by current status
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="h-[300px]">
-              <ProjectStatusChart />
-            </div>
-          </CardContent>
-        </Card>
-      </div>
+      {/* Recent Projects - Moved to its own row and full width */}
+      <Card className="mb-8">
+        <CardHeader className="pb-3">
+          <div className="flex justify-between items-center">
+            <CardTitle>Recent Projects</CardTitle>
+            <Button variant="ghost" size="sm" onClick={() => navigate('/projects')}>View All</Button>
+          </div>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-4">
+            {mockProjects.map((project) => (
+              <Card
+                key={project.id}
+                className="hover:shadow-md transition-shadow cursor-pointer"
+                onClick={() => handleViewProject(project.id)}
+              >
+                <CardContent className="p-4">
+                  <div className="space-y-2">
+                    <div className="flex justify-between items-center">
+                      <h4 className="font-medium">{project.name}</h4>
+                      <Badge variant={project.status === "Completed" ? "default" : "secondary"}>
+                        {project.status}
+                      </Badge>
+                    </div>
+                    <div className="flex justify-between text-xs text-muted-foreground">
+                      <span>Completion</span>
+                      <span>{project.completion}%</span>
+                    </div>
+                    <Progress value={project.completion} className="h-2" />
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
 
       {/* Project Timeline Visualization */}
       <MotionContainer delay={300} animation="slide-up">

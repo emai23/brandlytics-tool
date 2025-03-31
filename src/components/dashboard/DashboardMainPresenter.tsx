@@ -223,10 +223,26 @@ const DashboardMainPresenter = (props: DashboardContainerData) => {
         />
       </div>
 
-      {/* Projects Overview & Status */}
-      <div className="grid gap-6 md:grid-cols-3 mb-8">
-        {/* Projects List */}
-        <Card className="md:col-span-1">
+      {/* Project Status Overview - Moved to its own row and full width */}
+      <MotionContainer delay={300} animation="slide-up">
+        <Card className="mb-8">
+          <CardHeader className="pb-2">
+            <CardTitle>Project Status Overview</CardTitle>
+            <CardDescription>
+              Distribution of projects by current status
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="h-[300px]">
+              <ProjectStatusChart />
+            </div>
+          </CardContent>
+        </Card>
+      </MotionContainer>
+      
+      {/* Recent Projects - Moved to its own row and full width */}
+      <MotionContainer delay={350} animation="slide-up">
+        <Card className="mb-8">
           <CardHeader className="pb-3">
             <div className="flex justify-between items-center">
               <CardTitle>Recent Projects</CardTitle>
@@ -241,25 +257,10 @@ const DashboardMainPresenter = (props: DashboardContainerData) => {
             />
           </CardContent>
         </Card>
-
-        {/* Project Status Overview - Donut Chart */}
-        <Card className="md:col-span-2">
-          <CardHeader className="pb-2">
-            <CardTitle>Project Status Overview</CardTitle>
-            <CardDescription>
-              Distribution of projects by current status
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="h-[300px]">
-              <ProjectStatusChart />
-            </div>
-          </CardContent>
-        </Card>
-      </div>
+      </MotionContainer>
 
       {/* Project Timeline Visualization */}
-      <MotionContainer delay={300} animation="slide-up">
+      <MotionContainer delay={400} animation="slide-up">
         <Card className="mb-8">
           <CardHeader>
             <CardTitle>Project Timeline</CardTitle>
@@ -278,7 +279,7 @@ const DashboardMainPresenter = (props: DashboardContainerData) => {
       {/* Two-column layout for additional metrics */}
       <div className="grid gap-6 grid-cols-1 md:grid-cols-2 mb-8">
         {/* Project Creation and Completion Trends */}
-        <MotionContainer delay={350} animation="slide-up">
+        <MotionContainer delay={450} animation="slide-up">
           <Card>
             <CardHeader>
               <CardTitle>Project Trends</CardTitle>
@@ -293,7 +294,7 @@ const DashboardMainPresenter = (props: DashboardContainerData) => {
         </MotionContainer>
 
         {/* Marketing Channel Effectiveness */}
-        <MotionContainer delay={400} animation="slide-up">
+        <MotionContainer delay={500} animation="slide-up">
           <Card>
             <CardHeader>
               <CardTitle>Marketing Channel Effectiveness</CardTitle>
@@ -309,7 +310,7 @@ const DashboardMainPresenter = (props: DashboardContainerData) => {
       </div>
 
       {/* Resource Allocation Section */}
-      <MotionContainer delay={450} animation="slide-up">
+      <MotionContainer delay={550} animation="slide-up">
         <Card className="mb-8">
           <CardHeader>
             <CardTitle>Resource Allocation</CardTitle>
@@ -326,7 +327,7 @@ const DashboardMainPresenter = (props: DashboardContainerData) => {
       </MotionContainer>
 
       {/* Recent Activity Feed */}
-      <MotionContainer delay={500} animation="slide-up">
+      <MotionContainer delay={600} animation="slide-up">
         <Card>
           <CardHeader>
             <CardTitle>Recent Activity</CardTitle>
